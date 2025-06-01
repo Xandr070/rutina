@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { HiOutlineUserGroup, HiOutlineHome, HiOutlineMenu, HiOutlineX } from 'react-icons/hi';
+import classNames from 'classnames';
 import styles from '../../styles/Chat.module.scss';
 import ChatSidebar from '../../components/ChatSidebar';
 import MessageBubble from '../../components/MessageBubble';
@@ -24,39 +26,13 @@ const suggestedPrompts = [
   {
     prompt: "Спланировать выходные с детьми",
     description: "Получите персонализированные рекомендации для активного и познавательного досуга всей семьей, учитывающие возраст детей и ваши интересы.",
-    icon: (
-      <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-      </svg>
-    )
-  },
-  {
-    prompt: "Организовать семейный праздник",
-    description: "Создайте незабываемое событие с уникальным сценарием, играми, развлечениями и праздничным меню для всех возрастов.",
-    icon: (
-      <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z" />
-      </svg>
-    )
+    icon: <HiOutlineUserGroup />
   },
   {
     prompt: "Найти занятия для дождливого дня",
     description: "Получите креативные идеи для увлекательного времяпрепровождения дома: от творческих мастер-классов до семейных игр и развивающих активностей.",
-    icon: (
-      <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-      </svg>
-    )
+    icon: <HiOutlineHome />
   },
-  {
-    prompt: "Спланировать семейное путешествие",
-    description: "Разработаем маршрут с учетом интересов всех членов семьи, включая достопримечательности, активности и места для отдыха.",
-    icon: (
-      <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-    )
-  }
 ];
 
 const Chat: React.FC = () => {
@@ -79,6 +55,8 @@ const Chat: React.FC = () => {
   const [isThinking, setIsThinking] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     setMessages(chatHistory[activeChatId] || []);
@@ -91,6 +69,24 @@ const Chat: React.FC = () => {
       [activeChatId]: messages
     }));
   }, [messages, activeChatId]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      const newIsMobile = width < 768;
+      setIsMobile(newIsMobile);
+      
+      if (newIsMobile) {
+        setIsSidebarExpanded(false);
+      } else {
+        setIsSidebarExpanded(true);
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handleNewChat = () => {
     const newChatId = Math.max(...chats.map(c => c.id)) + 1;
@@ -202,6 +198,10 @@ const Chat: React.FC = () => {
     }, 1500);
   };
 
+  const toggleSidebar = () => {
+    setIsSidebarExpanded(prev => !prev);
+  };
+
   return (
     <div className={styles.chat}>
       <div className={styles.backgroundEffects}>
@@ -209,22 +209,47 @@ const Chat: React.FC = () => {
         <div className={styles.blob2} />
       </div>
 
+      {isMobile && (
+        <div 
+          className={classNames(styles.overlay, {
+            [styles.visible]: isSidebarExpanded
+          })}
+          onClick={() => setIsSidebarExpanded(false)}
+        />
+      )}
+
       <ChatSidebar
         chats={chats}
         activeChatId={activeChatId}
-        onChatSelect={setActiveChatId}
+        onChatSelect={(id) => {
+          setActiveChatId(id);
+          if (isMobile) {
+            setIsSidebarExpanded(false);
+          }
+        }}
         onChatDelete={handleChatDelete}
         onNewChat={handleNewChat}
         onChatRename={handleChatRename}
+        isExpanded={isSidebarExpanded}
+        className={classNames({
+          [styles.expanded]: isSidebarExpanded,
+          [styles.collapsed]: !isSidebarExpanded
+        })}
       />
 
       <div className={styles.mainContent}>
         <div className={styles.chatHeader}>
+          <button 
+            className={styles.menuButton}
+            onClick={toggleSidebar}
+            aria-label={isSidebarExpanded ? "Скрыть меню" : "Показать меню"}
+          >
+            {isSidebarExpanded ? <HiOutlineX /> : <HiOutlineMenu />}
+          </button>
+          
           <div className={styles.chatInfo}>
             <div className={styles.aiAvatar}>
-              <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
+              <HiOutlineUserGroup className="w-5 h-5 text-white" />
             </div>
             <div className={styles.chatDetails}>
               <h2 className={styles.chatName}>

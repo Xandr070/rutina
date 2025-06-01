@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { HiOutlineArrowRight } from 'react-icons/hi';
 import styles from '../styles/Chat.module.scss';
 
 interface SuggestedPromptProps {
@@ -22,23 +23,16 @@ const SuggestedPrompt: React.FC<SuggestedPromptProps> = ({
       onClick={() => onClick(prompt)}
       className={styles.promptCard}
     >
-      <div className={styles.glow} />
-      
-      <div className={styles.content}>
-        <div className={styles.icon}>
-          {icon}
-        </div>
-        <div className={styles.text}>
-          <h4 className={styles.title}>{prompt}</h4>
-          <p className={styles.description}>{description}</p>
-        </div>
+      <div className={styles.icon}>
+        {icon}
       </div>
+      
+      <h4 className={styles.title}>{prompt}</h4>
+      <p className={styles.description}>{description}</p>
 
       <div className={styles.action}>
         <span>Спросить</span>
-        <svg className={styles.arrow} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M5 12h14m-7-7l7 7-7 7" />
-        </svg>
+        <HiOutlineArrowRight className={styles.arrow} />
       </div>
     </motion.button>
   );
