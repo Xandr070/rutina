@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {motion} from 'framer-motion';
 import { HiOutlineClock, HiOutlineChat, HiOutlineCalendar } from 'react-icons/hi';
-import styles from './Home.module.scss';
+import styles from '../../styles/Home.module.scss';
 import {PiChartLine, PiLightbulb, PiRobotLight} from "react-icons/pi";
 
 interface FeatureCardProps {
