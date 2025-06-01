@@ -1,0 +1,249 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.home {
+  min-height: 100vh;
+  background-color: $gray-50;
+  padding-top: $spacing-xl;
+  margin-top: 4rem;
+}
+
+.backgroundEffects {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+
+  .blob1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 500px;
+    height: 500px;
+    background: $gradient-light-primary;
+    border-radius: 50%;
+    filter: blur(48px);
+    opacity: 0.6;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .blob2 {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 400px;
+    height: 400px;
+    background: $gradient-light-secondary;
+    border-radius: 50%;
+    filter: blur(48px);
+    opacity: 0.6;
+    animation: float 6s ease-in-out infinite;
+    animation-delay: -3s;
+  }
+}
+
+.container {
+  @include container;
+  position: relative;
+  z-index: 1;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: $spacing-3xl;
+
+  .title {
+    @include heading-1;
+    color: $text-color;
+    margin-bottom: $spacing-lg;
+
+    .highlight {
+      @include gradient-text;
+    }
+  }
+
+  .description {
+    font-size: $font-size-xl;
+    color: $text-muted;
+    max-width: 42rem;
+    margin: 0 auto $spacing-2xl;
+    line-height: 1.5;
+  }
+
+  .cta {
+    @include button-primary;
+    padding: $spacing-lg $spacing-2xl;
+    font-size: $font-size-lg;
+  }
+}
+
+.features {
+  @include responsive-grid(3);
+  margin-bottom: $spacing-3xl;
+}
+
+.featureCard {
+  @include card-hover;
+  padding: $spacing-xl;
+  display: flex;
+  flex-direction: column;
+
+  .icon {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0.5rem;
+    border-radius: $border-radius-lg;
+    color: transparent;
+    transition: $transition-base;
+    margin-bottom: $spacing-lg;
+
+    svg {
+      width: $icon-size-lg;
+      height: $icon-size-lg;
+      stroke: url(#grad1);
+      fill: transparent;
+    }
+  }
+
+  .title {
+    @include heading-3;
+    color: $text-color;
+    margin-bottom: $spacing-sm;
+  }
+
+  .description {
+    color: $text-muted;
+    line-height: 1.5;
+  }
+}
+
+.steps {
+  margin-bottom: $spacing-3xl;
+
+  .sectionTitle {
+    @include section-title;
+  }
+
+  .stepsGrid {
+    @include responsive-grid(4);
+  }
+}
+
+.stepItem {
+  text-align: center;
+
+  .stepNumber {
+    width: $icon-size-xl;
+    height: $icon-size-xl;
+    border-radius: 50%;
+    margin: 0 auto $spacing-lg;
+    @include flex-center;
+    font-size: $font-size-2xl;
+    font-weight: bold;
+
+    &.step1 { background-color: rgba($primary-color, 0.1); color: $primary-color; }
+    &.step2 { background-color: rgba($secondary-color, 0.1); color: $secondary-color; }
+    &.step3 { background-color: rgba(#0EA5E9, 0.1); color: #0EA5E9; }
+    &.step4 { background-color: rgba(#6366F1, 0.1); color: #6366F1; }
+  }
+
+  .stepTitle {
+    font-weight: 600;
+    color: $text-color;
+    margin-bottom: $spacing-sm;
+  }
+
+  .stepDescription {
+    color: $text-muted;
+  }
+}
+
+.aiFeatures {
+  margin-bottom: $spacing-3xl;
+
+  .sectionTitle {
+    @include section-title;
+  }
+
+  .sectionDescription {
+    @include section-description;
+  }
+
+  .grid {
+    @include responsive-grid(3);
+  }
+}
+
+.aiFeatureCard {
+  @include card-hover;
+  padding: $spacing-xl;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  &:hover {
+    .glow {
+      opacity: 0.6;
+    }
+  }
+
+  .glow {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 8rem;
+    height: 8rem;
+    border-radius: 50%;
+    background: $gradient-light-primary;
+    filter: blur(32px);
+    opacity: 0;
+    transition: $transition-base;
+  }
+
+  .content {
+    position: relative;
+    z-index: 1;
+  }
+
+  .icon {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0.5rem;
+    border-radius: $border-radius-lg;
+    color: transparent;
+    transition: $transition-base;
+    margin-bottom: $spacing-lg;
+
+    svg {
+      width: $icon-size-lg;
+      height: $icon-size-lg;
+      stroke: url(#grad1);
+      stroke-width: 1.5;
+      fill: $danger-color;
+    }
+  }
+
+  .title {
+    @include heading-3;
+    color: $text-color;
+    margin-bottom: $spacing-sm;
+  }
+
+  .description {
+    color: $text-muted;
+    line-height: 1.5;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
