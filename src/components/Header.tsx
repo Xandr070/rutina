@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, {useState} from 'react';
+import {Link, useLocation} from 'react-router-dom';
 import classNames from 'classnames';
 import styles from "./styles/Header.module.scss";
+import {CgProfile} from "react-icons/cg";
 
 interface NavItem {
     path: string;
@@ -23,13 +24,13 @@ const Header: React.FC = () => {
     };
 
     const navigation: NavItem[] = [
-        { path: '/', label: 'Главная' },
-        { path: '/chat', label: 'AI Ассистент' },
-        { path: '/events', label: 'Мероприятия' },
-        { path: '/calendar', label: 'Календарь' },
+        {path: '/', label: 'Главная'},
+        {path: '/chat', label: 'AI Ассистент'},
+        {path: '/events', label: 'Мероприятия'},
+        {path: '/calendar', label: 'Календарь'},
     ];
 
-    const NavLink: React.FC<NavLinkProps> = ({ to, children, onClick }) => (
+    const NavLink: React.FC<NavLinkProps> = ({to, children, onClick}) => (
         <Link
             to={to}
             className={classNames(styles.navLink, {
@@ -54,25 +55,11 @@ const Header: React.FC = () => {
             <div className={styles.container}>
                 <div className={styles.wrapper}>
                     <Link to="/" className={styles.logo} onClick={closeMobileMenu}>
-                        <div className={styles.logoIcon}>
-                            <div className={styles.logoIconInner}>
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M12 20V10M12 10L7 6M12 10L17 6"
-                                        stroke="url(#grad1)"
-                                        strokeWidth="2"
-                                        strokeLinecap="round"
-                                    />
-                                </svg>
-                            </div>
-                        </div>
-                        <span className={styles.logoText}>
-              FamilyAI
-            </span>
+                        <span className={styles.logoText}>FamilyAI</span>
                     </Link>
 
                     <nav className={styles.nav}>
-                        {navigation.map(({ path, label }) => (
+                        {navigation.map(({path, label}) => (
                             <NavLink key={path} to={path}>{label}</NavLink>
                         ))}
                     </nav>
@@ -85,11 +72,11 @@ const Header: React.FC = () => {
                             })}
                             onClick={closeMobileMenu}
                         >
-                            <div className={styles.profileButtonInner}>
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#grad1)" strokeWidth="2">
-                                    <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                                </svg>
-                            </div>
+                            <CgProfile 
+                                size={16}
+                                color="currentColor"
+                                className={styles.profileIcon}
+                            />
                         </Link>
                     </div>
 
@@ -98,11 +85,12 @@ const Header: React.FC = () => {
                         onClick={toggleMobileMenu}
                         aria-label="Открыть меню"
                     >
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                             strokeWidth="2">
                             {isMobileMenuOpen ? (
-                                <path d="M6 18L18 6M6 6l12 12" />
+                                <path d="M6 18L18 6M6 6l12 12"/>
                             ) : (
-                                <path d="M4 6h16M4 12h16M4 18h16" />
+                                <path d="M4 6h16M4 12h16M4 18h16"/>
                             )}
                         </svg>
                     </button>
@@ -112,7 +100,7 @@ const Header: React.FC = () => {
             <nav className={classNames(styles.mobileNav, {
                 [styles.isOpen]: isMobileMenuOpen
             })}>
-                {navigation.map(({ path, label }) => (
+                {navigation.map(({path, label}) => (
                     <NavLink key={path} to={path} onClick={closeMobileMenu}>
                         {label}
                     </NavLink>
@@ -124,17 +112,8 @@ const Header: React.FC = () => {
                     Профиль
                 </NavLink>
             </nav>
-
-            <svg width="0" height="0">
-                <defs>
-                    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#F43F5E" />
-                        <stop offset="100%" stopColor="#F59E0B" />
-                    </linearGradient>
-                </defs>
-            </svg>
         </header>
     );
 };
 
-export default Header; 
+export default Header;

@@ -29,28 +29,12 @@
   @include flex-start;
   gap: 0.5rem;
   text-decoration: none;
-
-  .logoIcon {
-    width: 2.5rem;
-    height: 2.5rem;
-    background: $gradient-primary;
-    border-radius: $border-radius-lg;
-    padding: 2px;
-
-    .logoIconInner {
-      width: 100%;
-      height: 100%;
-      background: white;
-      border-radius: inherit;
-      @include flex-center;
-  }
 }
 
-  .logoText {
-    font-size: $font-size-lg;
-    font-weight: 600;
-    @include text-gradient;
-}
+.logoText {
+  font-size: $font-size-lg;
+  font-weight: 600;
+  @include text-gradient;
 }
 
 .nav {
@@ -60,11 +44,11 @@
 
   @include responsive(md) {
     display: flex;
-}
+  }
 
-  @media (max-width: $breakpoint-md - 1px) {
-  display: none;
-}
+  @media (max-width: #{$breakpoint-md - 1px}) {
+    display: none;
+  }
 }
 
 .navLink {
@@ -78,13 +62,15 @@
   &:hover:not(.active) {
     background-color: $gray-50;
     color: $text-color;
-}
+    text-decoration: none;
+  }
 
   &.active {
     background: $gradient-primary;
     color: white;
+    text-decoration: none;
     box-shadow: $shadow-lg;
-}
+  }
 }
 
 .menuButton {
@@ -96,16 +82,16 @@
 
   @include responsive(md) {
     display: none;
-}
+  }
 
   &:hover {
     background-color: $gray-100;
-}
+  }
 
   svg {
     width: $icon-size-sm;
     height: $icon-size-sm;
-}
+  }
 }
 
 .profileSection {
@@ -114,36 +100,26 @@
 }
 
 .profileButton {
-  width: $icon-size-xl;
-  height: $icon-size-xl;
-  border-radius: 50%;
-  background: $gradient-primary;
-  padding: 2px;
-  transition: transform 0.2s ease-in-out;
-  text-decoration: none;
-  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  border-radius: $border-radius-lg;
+  transition: $transition-base;
 
   &:hover {
-    transform: scale(1.05);
-}
+    background-color: $gray-50;
+  }
 
   &.active {
-    transform: scale(1.05);
-    box-shadow: $shadow-lg;
-}
-
-  &Inner {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background-color: white;
-    @include flex-center;
-
-    svg {
-      width: $icon-size-sm;
-      height: $icon-size-sm;
+    color: $gray-50;
+    background: $gradient-primary;
   }
 }
+
+.profileIcon {
+  width: $icon-size-base;
+  height: $icon-size-base;
 }
 
 .mobileNav {
@@ -160,14 +136,14 @@
 
   &.isOpen {
     display: flex;
-}
+  }
 
   .navLink {
     width: 100%;
     text-align: center;
-}
+  }
 
   @include responsive(md) {
     display: none;
-}
+  }
 }
