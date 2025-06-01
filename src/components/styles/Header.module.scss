@@ -42,10 +42,6 @@
   gap: 0.5rem;
   margin: 0 2rem;
 
-  @include responsive(md) {
-    display: flex;
-  }
-
   @media (max-width: #{$breakpoint-md - 1px}) {
     display: none;
   }
@@ -74,23 +70,32 @@
 }
 
 .menuButton {
+  display: none;
   padding: 0.5rem;
   border-radius: $border-radius-lg;
   cursor: pointer;
   border: none;
   background: transparent;
+  color: $text-muted;
+  transition: $transition-base;
 
-  @include responsive(md) {
-    display: none;
+  @media (max-width: #{$breakpoint-md - 1px}) {
+    display: flex;
+    align-items: center;
   }
 
   &:hover {
-    background-color: $gray-100;
+    background-color: $gray-50;
+  }
+
+  &[aria-expanded="true"] {
+    color: $gray-50;
+    background: $gradient-primary;
   }
 
   svg {
-    width: $icon-size-sm;
-    height: $icon-size-sm;
+    width: $icon-size-base;
+    height: $icon-size-base;
   }
 }
 
@@ -106,6 +111,7 @@
   padding: 0.5rem;
   border-radius: $border-radius-lg;
   transition: $transition-base;
+  color: $text-muted;
 
   &:hover {
     background-color: $gray-50;
@@ -123,7 +129,6 @@
 }
 
 .mobileNav {
-  display: none;
   position: fixed;
   top: 4rem;
   left: 0;
@@ -133,17 +138,23 @@
   border-bottom: 1px solid $gray-100;
   @include flex-column;
   gap: 0.5rem;
+  z-index: 40;
+  display: none;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 
-  &.isOpen {
-    display: flex;
+  @media (max-width: #{$breakpoint-md - 1px}) {
+    &.isOpen {
+      display: flex;
+    }
   }
 
   .navLink {
     width: 100%;
     text-align: center;
-  }
+    padding: 0.75rem 1rem;
 
-  @include responsive(md) {
-    display: none;
+    &:hover {
+      background-color: $gray-50;
+    }
   }
 }

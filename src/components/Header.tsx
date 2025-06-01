@@ -1,8 +1,41 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {Link, useLocation} from 'react-router-dom';
 import classNames from 'classnames';
 import styles from "./styles/Header.module.scss";
 import {CgProfile} from "react-icons/cg";
+
+const useMobileMenu = () => {
+    const [isOpen, setIsOpen] = useState(false);
+    const location = useLocation();
+
+    useEffect(() => {
+        setIsOpen(false);
+    }, [location]);
+
+    useEffect(() => {
+        if (!isOpen) return;
+
+        const handleClick = (e: MouseEvent) => {
+            const target = e.target as HTMLElement;
+            if (!target.closest(`.${styles.mobileNav}`) && !target.closest(`.${styles.menuButton}`)) {
+                setIsOpen(false);
+            }
+        };
+
+        document.addEventListener('click', handleClick);
+        return () => document.removeEventListener('click', handleClick);
+    }, [isOpen]);
+
+    const toggle = useCallback(() => {
+        setIsOpen(prev => !prev);
+    }, []);
+
+    const close = useCallback(() => {
+        setIsOpen(false);
+    }, []);
+
+    return {isOpen, toggle, close};
+};
 
 interface NavItem {
     path: string;
@@ -17,7 +50,7 @@ interface NavLinkProps {
 
 const Header: React.FC = () => {
     const location = useLocation();
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const {isOpen, toggle, close} = useMobileMenu();
 
     const isActive = (path: string): boolean => {
         return location.pathname === path;
@@ -42,19 +75,11 @@ const Header: React.FC = () => {
         </Link>
     );
 
-    const toggleMobileMenu = () => {
-        setIsMobileMenuOpen(!isMobileMenuOpen);
-    };
-
-    const closeMobileMenu = () => {
-        setIsMobileMenuOpen(false);
-    };
-
     return (
         <header className={styles.header}>
             <div className={styles.container}>
                 <div className={styles.wrapper}>
-                    <Link to="/" className={styles.logo} onClick={closeMobileMenu}>
+                    <Link to="/" className={styles.logo} onClick={close}>
                         <span className={styles.logoText}>FamilyAI</span>
                     </Link>
 
@@ -70,7 +95,7 @@ const Header: React.FC = () => {
                             className={classNames(styles.profileButton, {
                                 [styles.active]: isActive('/profile')
                             })}
-                            onClick={closeMobileMenu}
+                            onClick={close}
                         >
                             <CgProfile 
                                 size={16}
@@ -82,12 +107,13 @@ const Header: React.FC = () => {
 
                     <button
                         className={styles.menuButton}
-                        onClick={toggleMobileMenu}
+                        onClick={toggle}
                         aria-label="Открыть меню"
+                        aria-expanded={isOpen}
                     >
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                              strokeWidth="2">
-                            {isMobileMenuOpen ? (
+                            {isOpen ? (
                                 <path d="M6 18L18 6M6 6l12 12"/>
                             ) : (
                                 <path d="M4 6h16M4 12h16M4 18h16"/>
@@ -97,21 +123,23 @@ const Header: React.FC = () => {
                 </div>
             </div>
 
-            <nav className={classNames(styles.mobileNav, {
-                [styles.isOpen]: isMobileMenuOpen
-            })}>
+            <div
+                className={classNames(styles.mobileNav, {
+                    [styles.isOpen]: isOpen
+                })}
+            >
                 {navigation.map(({path, label}) => (
-                    <NavLink key={path} to={path} onClick={closeMobileMenu}>
+                    <NavLink key={path} to={path} onClick={close}>
                         {label}
                     </NavLink>
                 ))}
                 <NavLink
                     to="/profile"
-                    onClick={closeMobileMenu}
+                    onClick={close}
                 >
                     Профиль
                 </NavLink>
-            </nav>
+            </div>
         </header>
     );
 };
