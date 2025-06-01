@@ -1,0 +1,238 @@
+@import '../styles/base/variables';
+@import '../styles/base/mixins';
+
+.eventsPage {
+  min-height: 100vh;
+  background-color: rgba($gray-50, 0.5);
+  margin-top: 4rem;
+  position: relative;
+}
+
+.backgroundEffects {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+
+  .blob1, .blob2 {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    filter: blur(48px);
+    opacity: 0.4;
+    transition: opacity 0.3s ease;
+  }
+
+  .blob1 {
+    top: 0;
+    left: 0;
+    background: $gradient-light-primary;
+  }
+
+  .blob2 {
+    bottom: 0;
+    right: 0;
+    background: $gradient-light-secondary;
+  }
+
+  @include mobile {
+    display: none;
+  }
+}
+
+.container {
+  position: relative;
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 2rem 1rem 3rem;
+}
+
+.header {
+  @include flex-between;
+  margin-bottom: 1.5rem;
+
+  .headerContent {
+    h1 {
+      font-size: $font-size-2xl;
+      font-weight: 700;
+      color: $text-color;
+    }
+
+    p {
+      color: $text-muted;
+      margin-top: 0.25rem;
+    }
+  }
+
+  .createButton {
+    @include button-primary;
+    padding: 0.5rem 1rem;
+    border-radius: $border-radius-xl;
+    font-weight: 500;
+  }
+}
+
+.filters {
+  background-color: white;
+  border-radius: $border-radius-2xl;
+  border: 1px solid $gray-100;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+
+  .filtersContent {
+    @include flex-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    .filterButtons {
+      @include flex-start;
+      gap: 0.5rem;
+    }
+
+    .filterControls {
+      @include flex-start;
+      gap: 1rem;
+    }
+  }
+}
+
+.filterButton {
+  padding: 0.5rem 1rem;
+  border-radius: $border-radius-xl;
+  font-size: $font-size-sm;
+  font-weight: 500;
+  transition: $transition-base;
+
+  &.active {
+    background: $gradient-primary;
+    color: white;
+    box-shadow: $shadow-lg;
+  }
+
+  &:not(.active) {
+    background-color: white;
+    color: $text-muted;
+
+    &:hover {
+      background-color: $gray-50;
+    }
+  }
+}
+
+.searchInput {
+  position: relative;
+  
+  input {
+    padding: 0.5rem 1rem 0.5rem 2.5rem;
+    border-radius: $border-radius-xl;
+    border: 1px solid $gray-200;
+    font-size: $font-size-sm;
+    transition: $transition-base;
+    width: 16rem;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 4px rgba($primary-color, 0.1);
+    }
+  }
+
+  svg {
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.25rem;
+    height: 1.25rem;
+    color: $gray-400;
+  }
+}
+
+.viewToggle {
+  @include flex-center;
+  border: 1px solid $gray-200;
+  border-radius: $border-radius-lg;
+  padding: 0.25rem;
+
+  @include mobile {
+    display: none;
+  }
+
+  button {
+    padding: 0.375rem;
+    border-radius: $border-radius-lg;
+    transition: all 0.2s ease;
+
+    &.active {
+      background-color: $gray-100;
+    }
+
+    &:not(.active):hover {
+      background-color: $gray-50;
+    }
+
+    svg {
+      width: 1.25rem;
+      height: 1.25rem;
+      color: $gray-600;
+    }
+  }
+}
+
+.eventGrid {
+  display: grid;
+  gap: 1rem;
+  
+  &.gridView {
+    grid-template-columns: repeat(1, 1fr);
+    
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  &.listView {
+    grid-template-columns: 1fr;
+  }
+
+  @include mobile {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+.emptyState {
+  text-align: center;
+  padding: 3rem 0;
+
+  svg {
+    width: 4rem;
+    height: 4rem;
+    color: $gray-400;
+    margin: 0 auto 1rem;
+  }
+
+  h3 {
+    font-size: $font-size-lg;
+    font-weight: 500;
+    color: $text-color;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    color: $text-muted;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+} 
