@@ -198,6 +198,7 @@ $desktop: 1024px;
     @include button-primary;
     border-radius: $border-radius-xl;
     min-width: 120px;
+    width: 100%;
     max-width: 100%;
     gap: $spacing-sm;
 
