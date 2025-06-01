@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Header from "../src/components/Header.tsx";
-import Home from "./pages/Home.tsx";
+import Home from "./pages/Home/Home.tsx";
 
 const App: React.FC = () => {
     return (
