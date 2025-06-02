@@ -1,0 +1,60 @@
+@import '../styles/base/variables';
+@import '../styles/base/mixins';
+
+.card {
+  @include card-base;
+  padding: 1rem;
+}
+
+.content {
+  @include flex-start;
+  gap: 1rem;
+}
+
+.icon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: $border-radius-xl;
+  @include flex-center;
+  color: white;
+
+  &.primary {
+    background: $gradient-primary;
+  }
+
+  &.secondary {
+    background: $gradient-secondary;
+  }
+
+  &.success {
+    background: $gradient-success;
+  }
+
+  &.info {
+    background: $gradient-info;
+  }
+
+  svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}
+
+.info {
+  flex: 1;
+  min-width: 0;
+
+  .title {
+    font-size: $font-size-sm;
+    font-weight: 500;
+    color: $text-muted;
+    @include text-truncate;
+  }
+
+  .value {
+    font-size: $font-size-2xl;
+    font-weight: 600;
+    color: $text-color;
+    margin-top: 0.25rem;
+  }
+} 
