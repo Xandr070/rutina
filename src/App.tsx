@@ -5,6 +5,7 @@ import Home from "./pages/Home/Home.tsx";
 import Chat from "./pages/Chat/Chat.tsx";
 import Events from "./pages/Events/Events.tsx";
 import Profile from "./pages/Profile/Profile.tsx";
+import Calendar from "./pages/Calendar/Calendar.tsx";
 
 const App: React.FC = () => {
     return (
@@ -15,7 +16,7 @@ const App: React.FC = () => {
                     <Route path="/" element={<Home/>}/>
                     <Route path="/chat" element={<Chat/>} />
                     <Route path="/events" element={<Events/>}/>
-                    <Route path="/calendar" element={<span>Calendar</span>}/>
+                    <Route path="/calendar" element={<Calendar/>}/>
                     <Route path="/profile" element={<Profile/>}/>
                 </Routes>
             </main>

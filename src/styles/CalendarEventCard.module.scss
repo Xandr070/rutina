@@ -1,0 +1,68 @@
+@import '../styles/base/variables';
+@import '../styles/base/mixins';
+
+.eventCard {
+  @include card-base;
+  @include card-hover;
+  padding: 0.75rem;
+}
+
+.eventContent {
+  @include flex-start;
+  gap: 0.75rem;
+}
+
+.typeIndicator {
+  width: 0.375rem;
+  height: 3rem;
+  border-radius: $border-radius-full;
+  opacity: 0.8;
+
+  &.familyType {
+    background: linear-gradient(to bottom, $primary-color, $secondary-color);
+  }
+
+  &.kidsType {
+    background: linear-gradient(to bottom, $secondary-color, adjust-hue($secondary-color, 20deg));
+  }
+
+  &.outdoorType {
+    background: linear-gradient(to bottom, $green-400, $blue-400);
+  }
+
+  &.indoorType {
+    background: linear-gradient(to bottom, $blue-400, $blue-600);
+  }
+}
+
+.eventInfo {
+  flex: 1;
+  min-width: 0;
+
+  h3 {
+    font-size: $font-size-sm;
+    font-weight: 500;
+    color: $text-color;
+    @include text-truncate;
+  }
+}
+
+.eventMeta {
+  margin-top: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+
+  .metaItem {
+    @include flex-start;
+    font-size: $font-size-xs;
+    color: $text-muted;
+
+    svg {
+      width: 0.75rem;
+      height: 0.75rem;
+      margin-right: 0.25rem;
+      color: $gray-400;
+    }
+  }
+} 
