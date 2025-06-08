@@ -57,10 +57,10 @@ const Header: React.FC = () => {
     };
 
     const navigation: NavItem[] = [
-        {path: '/', label: 'Главная'},
-        {path: '/chat', label: 'AI Ассистент'},
-        {path: '/events', label: 'Мероприятия'},
-        {path: '/calendar', label: 'Календарь'},
+        {path: '/rutina/', label: 'Главная'},
+        {path: '/rutina/chat', label: 'AI Ассистент'},
+        {path: '/rutina/events', label: 'Мероприятия'},
+        {path: '/rutina/calendar', label: 'Календарь'},
     ];
 
     const NavLink: React.FC<NavLinkProps> = ({to, children, onClick}) => (
@@ -79,7 +79,7 @@ const Header: React.FC = () => {
         <header className={styles.header}>
             <div className={styles.container}>
                 <div className={styles.wrapper}>
-                    <Link to="/" className={styles.logo} onClick={close}>
+                    <Link to="/rutina/" className={styles.logo} onClick={close}>
                         <span className={styles.logoText}>FamilyAI</span>
                     </Link>
 
@@ -91,9 +91,9 @@ const Header: React.FC = () => {
 
                     <div className={styles.profileSection}>
                         <Link
-                            to="/profile"
+                            to="/rutina/profile"
                             className={classNames(styles.profileButton, {
-                                [styles.active]: isActive('/profile')
+                                [styles.active]: isActive('/rutina/profile')
                             })}
                             onClick={close}
                         >
@@ -134,7 +134,7 @@ const Header: React.FC = () => {
                     </NavLink>
                 ))}
                 <NavLink
-                    to="/profile"
+                    to="/rutina/profile"
                     onClick={close}
                 >
                     Профиль
