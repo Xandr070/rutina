@@ -88,7 +88,7 @@ const Profile: React.FC = () => {
         </svg>
       )
     }
-  ];
+  ] as const;
 
   const handleEditMember = (member: FamilyMember) => {
     console.log('Edit member:', member);
