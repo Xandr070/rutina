@@ -2,7 +2,7 @@
   "name": "rutina",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://xandr070.github.io/rutina",
+  "homepage": "https://xandr070.github.io/rutina/#/rutina/",
   "type": "module",
   "scripts": {
     "dev": "vite",
